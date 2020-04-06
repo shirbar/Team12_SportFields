@@ -3,6 +3,7 @@ package com.example.team12_sportfields;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,6 +26,10 @@ public class RegisterActivity extends AppCompatActivity {
     TextView loginTxt;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
+
+    public RegisterActivity(Context mMockContext) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +61,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    public void loginClick(View view) {
+    public void loginPageClick(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
+
+    public boolean test(){
+        return true;
+    }
 
     public void registerClick(View view) {
         String email = mEmail.getText().toString().trim();

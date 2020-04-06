@@ -78,7 +78,7 @@
         android:layout_marginStart="82dp"
         android:layout_marginTop="46dp"
         android:layout_marginEnd="82dp"
-        android:onClick="registerClick"
+        android:onClick="registerPageClick"
         android:text="Doesnt have an account? Register here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
