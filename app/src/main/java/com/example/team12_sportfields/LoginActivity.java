@@ -1,4 +1,4 @@
-package com.example.team_12_lolipop;
+package com.example.team12_sportfields;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

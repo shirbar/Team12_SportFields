@@ -31,6 +31,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
+        fAuth = FirebaseAuth.getInstance();
+
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+
         InitializeFields();
 
 
@@ -49,12 +57,41 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void loginClick(View view) {
-
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
 
     public void registerClick(View view) {
+        String email = mEmail.getText().toString().trim();
+        String password = mPassword.getText().toString().trim();
 
+        if (TextUtils.isEmpty(email)){
+            mEmail.setError("Email is Required.");
+            return;
+        }
+        if (TextUtils.isEmpty(password)){
+            mPassword.setError("Email is Required.");
+            return;
+        }
+        if(password.length() < 6){
+            mPassword.setError("Password must contain at least 6 characters.");
+            return;
+        }
+
+        fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
     }
 
 }
