@@ -34,9 +34,9 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth fAuth;
 
-    public LoginActivity(Context mMockContext) {
+    /*public LoginActivity(Context mMockContext) {
 
-    }
+    }*/
 
 
     @Override
@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
 
         InitializeFields();
+
+
 
 
     }
@@ -78,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             mPassword.setError("Email is Required.");
             return;
         }
+        progressBar.setVisibility(View.VISIBLE);
 
         /*private boolean isAuthorizedUser = loginAction(email, password);
         if(isAuthorizedUser) {
@@ -98,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();
                     value[0] = true;
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -110,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         return value[0];
     }
+
 
 
 }

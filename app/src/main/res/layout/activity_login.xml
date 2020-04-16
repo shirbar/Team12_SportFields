@@ -53,10 +53,11 @@
         android:layout_marginEnd="30dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
+
 
     <Button
         android:id="@+id/loginBtn"
@@ -92,9 +93,13 @@
         android:layout_marginStart="170dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="170dp"
+        android:layout_marginBottom="50dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerTxt" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

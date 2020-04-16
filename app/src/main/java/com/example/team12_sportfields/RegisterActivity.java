@@ -18,18 +18,25 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     EditText mFullName, mEmail, mPassword, mPhone;
     Button registerBtn;
     TextView loginTxt;
-    FirebaseAuth fAuth;
     ProgressBar progressBar;
+    private FirebaseAuth fAuth;
+    private DatabaseReference RootRef;
 
-    public RegisterActivity(Context mMockContext) {
+    /*public RegisterActivity(Context mMockContext) {
 
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         fAuth = FirebaseAuth.getInstance();
+        RootRef = FirebaseDatabase.getInstance().getReference("sportfields-86ef9");
 
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }
 
         InitializeFields();
+
 
 
     }
@@ -72,7 +77,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registerClick(View view) {
-        String email = mEmail.getText().toString().trim();
+
+
+
+        final String fullname = mFullName.getText().toString().trim();
+        final String phone = mPhone.getText().toString().trim();
+        final String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)){
@@ -88,10 +98,17 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
+
         fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()){
+
+                    String currentUserID = fAuth.getCurrentUser().getUid();
+                    RootRef.child("Users").child(currentUserID).setValue("");
+
                     Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
